@@ -569,6 +569,26 @@ STYLES = {
                       "on their words (DrawSVG), copper traces on the verbs and pulses (MotionPath) for data that "
                       "travels; LEDs and flags give the verdict per part.",
     },
+    "planta-de-acesso": {
+        "name": "Planta de acesso (access floor plan)", "family": "didactic",
+        "palette": {"bg": "#061a38", "bg2": "#0a2a55", "surface": "#0e2e5c", "text": "#e8f3ff", "muted": "#9cc7ff",
+                    "accent": "#edc580", "accent2": "#ffd84d", "alert": "#ff5468", "ok": "#7dffb0"},
+        "fonts": {"display": "Bebas Neue", "body": "B612 Mono", "mono": "B612 Mono", "caption": "Geist"},
+        "captions": {"weight": 800, "case": "upper", "box": None, "stroke": "9px #061a38", "fg": "#ffffff",
+                     "active_fg": "#000000", "active_bg": "#ffd84d", "scale": 0.9},
+        "frame": {"border": "2px solid rgba(150,195,255,.45)", "camera_radius": 6, "screen_radius": 6,
+                  "shadow": "0 18px 40px rgba(0,0,0,.45)",
+                  "world": "radial-gradient(ellipse 85% 60% at 50% 42%,#123a72 0%,#0a2a55 48%,#061a38 100%)"},
+        "overlay": {"grain": 0.06, "vignette": 0.2},
+        "transition": {"kind": "page", "dur": 0.55, "ease": "power3.inOut"},
+        "chapter_card": "terminal", "lower_third": "tag",
+        "sfx": {"chapter": "page_turn", "callout": "pen_write", "lower_third": "click", "set_piece": "door_slam",
+                "transition": "whoosh", "cta_tap": "click", "cta_done": "level_up", "intro": "scan"},
+        "music": {"ids": [187, 167, 31], "mood": "hopeful electronic that builds; kick on the proposal"},
+        "long_notes": "Each chapter is a new sheet of the plan (A, B, C…) with a PRELIMINARY STUDY stamp; the screen "
+                      "share is the sheet's main drawing; set pieces are rooms with doors drawn on their words, "
+                      "badges per role that open or lock the doors, and a legend box as the chapter recap.",
+    },
     "camadas": {
         "name": "Camadas (concept layers)", "family": "layers",
         "palette": {"bg": "#07060c", "bg2": "#14101f", "accent": "#ff7a59", "accent2": "#b9a6ff", "ok": "#6ef0ff"},

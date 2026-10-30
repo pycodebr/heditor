@@ -1,5 +1,19 @@
 # Changelog
 
+## 2.16.0 — 2026-10-30
+- **New didactic style `planta-de-acesso`** (access floor plan): who may use what, drawn as an architect's blue sheet
+  behind the cutout speaker. Every module or department is a room with a door drawn on its word, role badges open
+  (route, door swing, green check) or lock (door slam, padlock, red hatch, masked values) the doors, a sheet turn
+  carries the proposal in dashed "to be built" line work with a PRELIMINARY STUDY stamp, a legend box ticks the
+  features said, the closing pulls back to the whole company with people walking only into their rooms, giant words
+  behind the head on the hook and the payoff, captions over an architectural dimension line and a badge-reader CTA.
+  Style file, INDEX, SKILL.md, README (43 styles), creative-mode idea bank, long-form row and style pack
+  (`STYLES["planta-de-acesso"]`, family didactic).
+- `references/troubleshooting.md`: voice 30–70 ms off the picture in some blocks of a re-exported preview MP4 (seeked
+  AAC decode vs full decode; prepare from a `-c:v copy -c:a pcm_s16le` mezzanine), `camera_sync_check` false OUT OF SYNC
+  on crops of the same source, an `<img>` beside the `<video>` in a circle-clipped container leaking in the render, and
+  icons read at import time before `ensure_icons`.
+
 ## 2.15.1 — 2026-10-27
 - `references/gsap-craft.md` § Sequential seeks vs a single seek: the render seeks frame after frame (forward), so a
   tween still running when a later `set` on the same property fires wins in the MP4 while `heditor preview` shows the
