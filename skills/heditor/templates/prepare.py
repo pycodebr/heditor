@@ -28,4 +28,7 @@ if __name__ == "__main__":
     edl = prepare_cut(SOURCE, WORK, BLOCKS, crop=CROP)
     print(json.dumps({k: edl[k] for k in ("voice_duration", "removed_seconds", "noise_floor_dbfs", "silence_threshold_dbfs")}))
     for c in edl["chunks"]:
+        if c.get("pause"):  # ("PAUSE", seconds, key) blocks have no source range
+            print(c["block"], "pause", "->", round(c["out_start"], 2), round(c["out_end"], 2))
+            continue
         print(c["block"], round(c["source_in"], 3), round(c["source_out"], 3), "->", round(c["out_start"], 2), round(c["out_end"], 2))

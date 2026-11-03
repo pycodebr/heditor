@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.17.0 — 2026-11-02
+- **New style `vox`** (explainer documentary in monochrome), reverse-engineered from a vertical "Vox-style"
+  documentary Reel: the voice narrates over black-and-white reconstructed archive stills (people from behind, grain,
+  vignette, slow push-in) and paper collages (objects photographed on paper, divided by a fit of their own paper and
+  blended with `multiply`, a torn paper card, pencil sketches), blur dissolves, fades through white and rack defocus;
+  captions in Instrument Serif Italic revealed word by word on the subject's coat with the key word huge (blur-in),
+  white line art drawn on its word (library icons resampled into a jittered polyline, arrows, rays, a network that
+  lands on the spoken word), a hand-drawn ellipse or underline computed from the real TTF, the speaker once as a taped
+  black-and-white photograph, breathing pauses as `PAUSE` blocks, one soft piano, and a museum-label CTA under a
+  gilded frame (opening found by flood fill and punched). Runnable reference build `templates/styles/vox/build.py`
+  with `beats.example.json` (`heditor new <work> <video> --style vox`, then `heditor produce <work> vox 0`).
+  Style file, INDEX (five reference builds), SKILL.md, README (44 styles), creative-mode idea bank, long-form row and
+  style pack (`STYLES["vox"]`).
+- Fonts: Instrument Serif Regular and Italic (OFL) are downloaded by `setup.sh` with their licence.
+- `templates/prepare.py` no longer crashes printing the chunks when `BLOCKS` has `("PAUSE", seconds, key)` entries.
+- `references/troubleshooting.md`: blending inside a stacking context, `vector-effect` vs `pathLength`, round-cap dots
+  of a `1 1` dash pattern, and key words that vanish in short caption groups.
+
 ## 2.16.0 — 2026-10-30
 - **New didactic style `planta-de-acesso`** (access floor plan): who may use what, drawn as an architect's blue sheet
   behind the cutout speaker. Every module or department is a room with a door drawn on its word, role badges open

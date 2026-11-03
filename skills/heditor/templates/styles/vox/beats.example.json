@@ -1,0 +1,418 @@
+{
+ "scenes": [
+  {
+   "at": 0,
+   "kind": "photo",
+   "src": "gen/hoje.png",
+   "kb": [
+    1.04,
+    1.13
+   ],
+   "focus": [
+    0.5,
+    0.62
+   ],
+   "drift": [
+    0,
+    -20
+   ],
+   "cap": {
+    "y": 1360,
+    "ink": "light"
+   }
+  },
+  {
+   "at": [
+    "tudo",
+    5.5
+   ],
+   "kind": "photo",
+   "src": "gen/lab1993.png",
+   "enter": "blur",
+   "kb": [
+    1.04,
+    1.11
+   ],
+   "focus": [
+    0.6,
+    0.55
+   ],
+   "drift": [
+    10,
+    -25
+   ],
+   "cap": {
+    "y": 1200,
+    "ink": "light"
+   }
+  },
+  {
+   "at": [
+    "Em",
+    10.8
+   ],
+   "kind": "paper",
+   "src": "gen/papel.png",
+   "enter": "blur",
+   "cap": {
+    "y": 455,
+    "ink": "dark"
+   },
+   "items": [
+    {
+     "at": [
+      "Em",
+      10.8
+     ],
+     "img": "gen/crt.png",
+     "x": 520,
+     "y": 1120,
+     "w": 900,
+     "rot": -1.5
+    },
+    {
+     "at": [
+      "30",
+      11.2
+     ],
+     "card": [
+      "30",
+      "de abril"
+     ],
+     "x": 235,
+     "y": 1090,
+     "w": 260,
+     "rot": -7
+    }
+   ]
+  },
+  {
+   "at": [
+    "Até",
+    14.8
+   ],
+   "kind": "photo",
+   "src": "gen/globo.png",
+   "enter": "blur",
+   "kb": [
+    1.03,
+    1.12
+   ],
+   "focus": [
+    0.48,
+    0.53
+   ],
+   "drift": [
+    0,
+    0
+   ],
+   "cap": {
+    "y": 400,
+    "ink": "light"
+   },
+   "lift": [
+    70,
+    70
+   ]
+  },
+  {
+   "at": [
+    "A",
+    22.5
+   ],
+   "kind": "paper",
+   "src": "gen/papel.png",
+   "enter": "white",
+   "cap": {
+    "y": 440,
+    "ink": "dark"
+   },
+   "items": [
+    {
+     "at": [
+      "A",
+      22.5
+     ],
+     "plate": true,
+     "x": 540,
+     "y": 1160,
+     "w": 640,
+     "rot": -2.5
+    }
+   ]
+  },
+  {
+   "at": [
+    "Informação",
+    25.2
+   ],
+   "kind": "paper",
+   "src": "gen/papel.png",
+   "enter": "blur",
+   "cap": {
+    "y": 430,
+    "ink": "dark"
+   },
+   "items": [
+    {
+     "at": [
+      "Informação",
+      25.2
+     ],
+     "img": "gen/crt.png",
+     "x": 330,
+     "y": 860,
+     "w": 640,
+     "rot": -3
+    },
+    {
+     "at": [
+      "vai",
+      25.5
+     ],
+     "img": "gen/celular.png",
+     "x": 800,
+     "y": 1310,
+     "w": 520,
+     "rot": 3
+    }
+   ]
+  }
+ ],
+ "big": [
+  [
+   "inovação",
+   0
+  ],
+  [
+   "mesma",
+   7
+  ],
+  [
+   "WWW",
+   13
+  ],
+  [
+   "500",
+   17
+  ],
+  [
+   "fundamento",
+   24
+  ],
+  [
+   "apresentar",
+   28
+  ]
+ ],
+ "keep": [
+  [
+   [
+    "no",
+    8.5
+   ],
+   [
+    "93",
+    9.7
+   ]
+  ],
+  [
+   [
+    "inteligência",
+    1.4
+   ],
+   [
+    "artificial",
+    1.8
+   ]
+  ]
+ ],
+ "marks": [
+  {
+   "at": [
+    "93",
+    9.7
+   ],
+   "until": [
+    "Em",
+    10.8
+   ],
+   "kind": "circle",
+   "words": [
+    [
+     "no",
+     8.5
+    ],
+    [
+     "93",
+     9.7
+    ]
+   ],
+   "width": 6
+  },
+  {
+   "at": [
+    "mesma",
+    23.9
+   ],
+   "until": [
+    "Informação",
+    25.2
+   ],
+   "kind": "underline",
+   "words": [
+    [
+     "sempre",
+     23.6
+    ],
+    [
+     "mesma",
+     23.9
+    ]
+   ],
+   "width": 6
+  }
+ ],
+ "doodles": [
+  {
+   "at": [
+    "inteligência",
+    1.4
+   ],
+   "until": [
+    "tudo",
+    5.5
+   ],
+   "kind": "icon",
+   "name": "message-square",
+   "x": 230,
+   "y": 540,
+   "size": 150,
+   "rot": -8
+  },
+  {
+   "at": [
+    "API",
+    2.8
+   ],
+   "until": [
+    "tudo",
+    5.5
+   ],
+   "kind": "icon",
+   "name": "braces",
+   "x": 540,
+   "y": 540,
+   "size": 150,
+   "rot": 4
+  },
+  {
+   "at": [
+    "sistema",
+    3.4
+   ],
+   "until": [
+    "tudo",
+    5.5
+   ],
+   "kind": "icon",
+   "name": "settings",
+   "x": 850,
+   "y": 540,
+   "size": 150,
+   "rot": -4
+  },
+  {
+   "at": [
+    "disponível",
+    12.8
+   ],
+   "until": [
+    "Até",
+    14.8
+   ],
+   "kind": "rays",
+   "x": 490,
+   "y": 815,
+   "r": 210,
+   "n": 7,
+   "arc": [
+    230,
+    340
+   ]
+  },
+  {
+   "at": [
+    "500",
+    17.5
+   ],
+   "until": [
+    "A",
+    22.5
+   ],
+   "until_full": [
+    "mundo",
+    20
+   ],
+   "kind": "network",
+   "rect": [
+    235,
+    805,
+    570,
+    570
+   ],
+   "n": 64
+  },
+  {
+   "at": [
+    "vai",
+    25.7
+   ],
+   "until": 29.85,
+   "kind": "arrow",
+   "from": [
+    600,
+    780
+   ],
+   "to": [
+    780,
+    1000
+   ],
+   "bend": -0.3
+  },
+  {
+   "at": [
+    "vem",
+    26.5
+   ],
+   "until": 29.85,
+   "kind": "arrow",
+   "from": [
+    690,
+    1440
+   ],
+   "to": [
+    625,
+    1215
+   ],
+   "bend": -0.5
+  }
+ ],
+ "cta": {
+  "frame": "gen/moldura.png",
+  "photo": "gen/lab1993.png",
+  "paper": "gen/papel.png",
+  "label": "World Wide Web",
+  "sub": "30 de abril de 1993",
+  "hold": 5.0
+ },
+ "music": {
+  "main": "music:955",
+  "drop": 0.0,
+  "gain_db": -1
+ },
+ "allowed_numbers": [
+  1993
+ ],
+ "_note": "Example from a pilot (a class excerpt about the web in 1993). Coordinates are stage px for these stills; rebuild every scene, word and coordinate from your speech."
+}

@@ -228,6 +228,31 @@ STYLES = {
                       "speaker. Screen shares enter as archive footage (grain, slight vignette). Rolling credits as "
                       "the closing card.",
     },
+    "vox": {
+        "name": "Vox (explainer documentary in monochrome)", "family": "organic",
+        "palette": {"bg": "#0b0b0b", "bg2": "#1a1916", "surface": "#e8e5df", "text": "#f4f1ea", "muted": "#9a948a",
+                    "accent": "#c9a45c", "accent2": "#f3efe6", "alert": "#8c2f2a", "ok": "#6f8f6a"},
+        "fonts": {"display": "Playfair Display", "caption": "Playfair Display", "body": "Inter",
+                  "serif": "Playfair Display"},
+        "captions": {"weight": 400, "case": "none", "box": None, "stroke": None, "fg": "#171512", "active_fg": "#171512",
+                     "active_bg": "#f3efe6", "scale": 1.0},
+        "frame": {"border": "18px solid #f1ebdf", "camera_radius": 0, "screen_radius": 2,
+                  "shadow": "0 22px 40px rgba(0,0,0,.28)",
+                  "world": "radial-gradient(ellipse 85% 75% at 50% 45%,#ece9e3 0%,#e3dfd6 70%,#d6d1c6 100%)"},
+        "overlay": {"grain": 0.16, "letterbox": False, "vignette": 0.3},
+        "transition": {"kind": "fade", "dur": 0.6, "ease": "power2.out"},
+        "chapter_card": "editorial", "lower_third": "plate",
+        "camera_grade": "format=gray,eq=contrast=1.18:brightness=0.03,format=rgb24,"
+                        "colorchannelmixer=rr=1.0:gg=0.96:bb=0.88,noise=alls=9:allf=t",
+        "sfx": {"chapter": "page_turn", "callout": "pen_write", "lower_third": "camera_shutter", "set_piece": "whoosh",
+                "transition": "whoosh", "cta_tap": "mouse_click", "cta_done": "success_chime", "intro": "page_turn"},
+        "font_note": "Instrument Serif Italic (installed by setup.sh 2.17.0+) for captions and key words, Regular for "
+                     "dates and card numbers; Playfair Display Italic is the long-form fallback",
+        "music": {"ids": [955, 871, 31], "mood": "one soft reflective piano, breathing pauses, no hits"},
+        "long_notes": "Chapters as fades through white to a new sheet of paper; black-and-white reconstructed stills "
+                      "(people from behind) with a slow push-in; key words huge in the serif; line art and a "
+                      "hand-drawn ellipse on the key phrases; the speaker as a taped photograph lower third.",
+    },
     "documentario-narrado": {
         "name": "Documentário narrado (atlas)", "family": "organic",
         "palette": {"bg": "#041117", "bg2": "#0c3039", "surface": "#08303b", "text": "#f3ead7", "muted": "#cfc4ad",

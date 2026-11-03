@@ -41,9 +41,11 @@ FONTS = {
     "B612Mono-Regular.ttf": GF + "b612mono/B612Mono-Regular.ttf",
     "B612Mono-Bold.ttf": GF + "b612mono/B612Mono-Bold.ttf",
     "Fredoka-VF.ttf": GF + "fredoka/Fredoka%5Bwdth,wght%5D.ttf",
+    "InstrumentSerif-Regular.ttf": GF + "instrumentserif/InstrumentSerif-Regular.ttf",
+    "InstrumentSerif-Italic.ttf": GF + "instrumentserif/InstrumentSerif-Italic.ttf",
 }
 FONT_LICENSE_DIRS = ["anton", "vt323", "geist", "inter", "jetbrainsmono", "ibmplexmono", "pressstart2p", "playfairdisplay",
-                     "fraunces", "bebasneue", "dmserifdisplay", "caveat", "b612mono", "fredoka"]
+                     "fraunces", "bebasneue", "dmserifdisplay", "caveat", "b612mono", "fredoka", "instrumentserif"]
 OTHER = {
     "js/gsap.min.js": "https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js",
     "licenses/Lucide-LICENSE.txt": "https://raw.githubusercontent.com/lucide-icons/lucide/main/LICENSE",
