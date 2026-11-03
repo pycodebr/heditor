@@ -1,0 +1,15 @@
+{
+ "places": [
+  {"at": 0, "clip": "gen/s1-talk.mp4", "card": ["APARTAMENTO", "HOJE"]},
+  {"at": 5.93, "clip": "gen/s2-talk.mp4", "card": ["LABORATÓRIO", "1993"]},
+  {"at": 11.17, "clip": "gen/s3-talk.mp4", "card": ["SALA DE SERVIDOR", "30 DE ABRIL"]},
+  {"at": 14.95, "clip": "gen/s4-talk.mp4", "card": ["DATA CENTER", "FIM DE 1993"]},
+  {"at": 20.52, "clip": "gen/s5-talk.mp4", "card": ["NO ALTO DA CIDADE", "O MUNDO CONECTADO"]},
+  {"at": 22.85, "clip": "gen/s6-talk.mp4", "card": ["CANTEIRO DE OBRAS", "A FUNDAÇÃO"]},
+  {"at": 25.27, "clip": "gen/s7-talk.mp4", "card": ["CASA", "ESTÚDIO"]}
+ ],
+ "cta": {"question": "Você estuda primeiro|o fundamento|ou a ferramenta?", "hold": 4.5},
+ "music": {"main": "music:187", "drop": 0.0, "gain_db": -2},
+ "map": true,
+ "allowed_numbers": [1993]
+}

@@ -81,6 +81,8 @@ case "$cmd" in
            "$PY" "$KIT/stockkit.py" "$@" ;;
   heygen)  # optional: heditor heygen connect|status|disconnect|avatars|voices|glossaries (references/heygen-avatar.md)
            "$PY" "$KIT/heygenkit.py" "$@" ;;
+  gen)     # optional: heditor gen status|persona|clip|talk|resume (references/generation.md)
+           "$PY" "$KIT/genkit.py" "$@" ;;
   avatar)  # optional: heditor avatar <work> --look ID (--script F|--text T|--audio F) [...] -> AI avatar source video
            need_work "${1:-}"; "$PY" "$KIT/heygenkit.py" avatar "$@" ;;
   styles)  ls "$SKILL_DIR/references/styles" | sed 's/\.md$//' | grep -v INDEX ;;
@@ -156,6 +158,15 @@ AI avatar from your HeyGen account (optional; nothing else needs it; see referen
                                                          cost estimate + confirmation, render, download into
                                                          <work>/source, provenance in <work>/avatar.json
   heditor avatar <work> --resume VIDEO_ID                download a video that was still rendering
+Generated media from your HeyGen account (optional; references/generation.md):
+  heditor gen status                                     credits left and the measured cost of each kind of job
+  heditor gen persona <work> <name> --ref IMG [--n 1]    you inside the reference image's scene, pose and clothes
+  heditor gen clip <work> <name> --prompt "..." [--image IMG|--ref IMG..] [--seconds 5] [--res 480p]
+                                                         a generated scene with its own sound (text/image/references)
+  heditor gen talk <work> <name> --image IMG (--text "..."|--script F|--audio F) [--motion ".."] [--alpha]
+                                                         any image of you speaking (cloned voice or your recording)
+  heditor gen resume <work> <job_id>                     download a job that was still rendering
+  (every command prints the plan and the estimate; nothing is spent without --yes)
 
 Motion assets (see references/gsap-craft.md and references/physics-3d.md):
   heditor svg <in.svg> [out.svg] [static|draw|morph]     SVGO clean-up for DrawSVG/MorphSVG + visual diff check

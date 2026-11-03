@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.18.0 — 2026-11-03
+- **`heditor gen`: generated media from the user's HeyGen account** (optional, `scripts/reelkit/genkit.py`,
+  `references/generation.md`): `persona` puts the person inside any reference scene (HeyGen `heygen-image-1`
+  identity remix from 1–5 identity images or look ids set once in `brand.json` `heygen.identity`; 2160×3840),
+  `clip` generates a scene with its own sound (`heygen-video-1`: text, first frame or references), `talk` makes any
+  still of the person speak with lip-sync (Avatar IV image: the brand's cloned voice on an approved script, or the
+  person's own recording; transparent WebM with `--alpha`), `status` and `resume`. Every job prints the plan and an
+  estimate and spends nothing without `--yes`; uploads are cached by content hash, idempotency keys avoid double
+  charges, the measured cost (credits before/after) goes to `~/.heditor/heygen-usage.json` and the provenance
+  (`synthetic: true`) to `<work>/gen/gen.json`. Measured on a Pro subscription: 6 credits per persona image, ~2
+  credits for a 5 s 480p clip, ~0.55–0.6 credit per second of talk at 1080p.
+- **Four new styles** identified in a study of three high-performing Brazilian creator Reels: `teletransporte` (the
+  clone travels the story: the speaker's generated likeness in a new place on every sentence, lip-synced to his own
+  voice, teleport cuts, place cards, journey map; runnable reference build `templates/styles/teletransporte/` that
+  normalises every place to one head size and eye line), `reconstituicao` (illustrative reconstruction of a real
+  event with generated shots and live data cards, map, quotes, gauges, investigation panel, "made with AI" reveal),
+  `revelacao-ia` (an AI fantasy of the speaker, then the reveal of the real take) and `tutorial-ilustrado`
+  (white-canvas narrated tutorial with a line-art host and UI drawn on the words). Style files, INDEX (six reference
+  builds), SKILL.md, README (48 styles), creative-mode idea bank, long-form rows and style packs.
+
 ## 2.17.0 — 2026-11-02
 - **New style `vox`** (explainer documentary in monochrome), reverse-engineered from a vertical "Vox-style"
   documentary Reel: the voice narrates over black-and-white reconstructed archive stills (people from behind, grain,
