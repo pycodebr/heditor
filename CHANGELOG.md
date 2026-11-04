@@ -1,5 +1,35 @@
 # Changelog
 
+## 2.20.0 — 2026-11-04
+- **HyperFrames 0.9.13** (was 0.8.147) in `setup.sh`, `heditor`, `doctor.py`, the long-form CLI, the composition
+  `package.json` template, troubleshooting, licences and README. The only breaking change between them (0.9.0) removes
+  the Plan v1 transport of distributed rendering on Lambda/Cloud Run, which heditor does not use; the render flags
+  heditor passes are unchanged. Checked before the bump by rendering two pilots with both versions and scoring them
+  with `hyperframes diff`: the physics pilot (three.js, bloom, depth of field, 240 frames) gave mean SSIM 0.9957
+  (p05 0.9954, worst cell p05 0.991) with no missing or extra cut; the `circuito` pilot (GSAP SplitText, DrawSVG,
+  MorphSVG and MotionPath, captions and the mixed soundtrack, 1,228 frames) gave mean SSIM 0.9946 (p05 0.9937, worst
+  cell p05 0.9876), the same duration and the sound at 0 ms offset. Existing installs pick the new pin
+  up by re-running `heditor setup` (it rewrites `~/.heditor/env.sh`).
+- **`heditor study`: reference study with HyperFrames' local tools** (`scripts/reelkit/studykit.py`,
+  `references/reference-study.md`). One command measures a video someone wants to emulate on this machine, with no
+  sign-in and no credits: `measure probe`, `measure cuts` (frame-to-frame difference, so jump cuts and punch-ins that
+  a scene score misses are listed), `measure events --map` (appear, disappear, change, holds, strong sound onsets),
+  `measure look`, `measure face`, `audio --quality local` (kind, loudness, silences, onsets, tempo, sections) and an
+  overview sheet. It writes the raw JSON, `study.json` (shot lengths, cuts per 10 s by third, first cut, on-screen
+  events per 10 s, holds share, onsets per 10 s, loudness, silence share, look, face height) and `study.md`.
+  `heditor study compare <ref> <yours>` puts a pilot's rhythm and look next to the reference's. `audio` never runs
+  with `--quality best` (it uploads to HeyGen and may bill) and the tool never calls paid commands; a test enforces it.
+- **`references/reference-study.md`:** from reference videos to a named style with measured targets: study every
+  video, group families, read event strips (`measure frames --events`), measure the signature components (captions
+  from the caption band's pixels, `ink`, `curve` for the GSAP ease of a move, `look --compare`, `energy`), rebuild
+  one component and score it with `hyperframes diff --at … --drawn`, recipes a seeked timeline reproduces (sweeping
+  fills, directional motion blur, glass type, seeded grain), and when HyperFrames' paid `reverse-any-video` may run:
+  only with the user's approval of the plan and the estimate, only for videos the user has the right to use, never
+  shipping a third party's footage, faces, logos or music. `creative-mode.md` (reference direction) and
+  `adding-styles.md` (a "Measured targets" block and a pilot compared with `heditor study compare`) point to it.
+- SKILL.md (description, mode table, references), README in Portuguese and English, `heditor help`, CI runs
+  `test_study.py`.
+
 ## 2.19.0 — 2026-11-03
 - **New paid-ad style `copy-noir`** (faceless direct-response ad in noir), reverse-engineered from the 17 active
   ads with the most impressions of a Brazilian copywriting company in the Meta Ad Library, measured with word-timed

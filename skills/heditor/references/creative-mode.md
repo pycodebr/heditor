@@ -30,7 +30,7 @@ The reference standard came from a real batch: seven class excerpts, each rebuil
 
 When the user names a reference ("use GTA 6 style", "like a Netflix true-crime opener", "anime opening", "Apple keynote", "90s VHS sitcom"):
 
-1. Research the reference (official trailers/screens, articles, fan analyses). Extract what makes it recognisable in five layers: **palette and light**, **typography and graphic design**, **UI/HUD conventions**, **camera and transitions**, **sound and music**.
+1. Research the reference (official trailers/screens, articles, fan analyses). Extract what makes it recognisable in five layers: **palette and light**, **typography and graphic design**, **UI/HUD conventions**, **camera and transitions**, **sound and music**. When the reference is a set of video files (Reels, ads, an explainer series), measure them before describing them: `heditor study` and the procedure in `reference-study.md` give cut rhythm, on-screen events, sound onsets, loudness, look and the eases of the signature moves as numbers.
 2. Write a reference brief with concrete equivalents you are allowed to use:
    - colours, gradients and grading recipes (CSS + ffmpeg filters),
    - OFL fonts with a similar voice (e.g. condensed sans for action titles, script for neon signage),

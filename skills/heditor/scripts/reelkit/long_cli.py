@@ -520,7 +520,7 @@ def cmd_lint(argv):
     """HyperFrames lint of the whole-timeline page and of every segment page (0 errors required)."""
     pos, _ = _args(argv)
     work = Path(pos[0]).resolve()
-    hf = shlex.split(os.environ.get("HEDITOR_HYPERFRAMES", "npx --yes hyperframes@0.8.147"))
+    hf = shlex.split(os.environ.get("HEDITOR_HYPERFRAMES", "npx --yes hyperframes@0.9.13"))
     dirs = [work / "composition"] + sorted((work / "segments").glob("seg-*"))
     bad = 0
     for d in dirs:
@@ -566,7 +566,7 @@ def cmd_render(argv):
     out_dir.mkdir(parents=True, exist_ok=True)
     prog_path = work / "render/progress.json"
     prog = json.loads(prog_path.read_text()) if prog_path.exists() else {}
-    hf = shlex.split(os.environ.get("HEDITOR_HYPERFRAMES", "npx --yes hyperframes@0.8.147"))
+    hf = shlex.split(os.environ.get("HEDITOR_HYPERFRAMES", "npx --yes hyperframes@0.9.13"))
     env = dict(os.environ, FFMPEG_ENCODE_TIMEOUT_MS=os.environ.get("FFMPEG_ENCODE_TIMEOUT_MS", "3600000"))
     total = sum(s["frames"] for s in segs)
     todo = [s for s in segs if not (prog.get(s["dir"], {}).get("hash") == s["hash"] and (out_dir / f"seg-{s['index']:03d}.mp4").exists()

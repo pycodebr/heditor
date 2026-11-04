@@ -1,6 +1,6 @@
 # Adding a named style
 
-When an edit made in creative mode (or a variation) is approved by the user, turn it into a reusable named style so it can be requested by name later ("edit this in style X").
+When an edit made in creative mode (or a variation) is approved by the user, turn it into a reusable named style so it can be requested by name later ("edit this in style X"). A style derived from reference videos starts with `references/reference-study.md`: its measured numbers go into the style file as a "Measured targets" block (median shot length, cuts per 10 s by third, on-screen events and strong sound onsets per 10 s, loudness, look values, eases and durations of the signature moves), and a pilot is accepted only after `heditor study compare` puts its rhythm next to the reference's.
 
 1. **Name it** with a short, memorable slug in the user's vocabulary (e.g. `aeroporto`, `game`, `podcast`). Ask the user if they want a specific name; otherwise propose one.
 2. **Write `references/styles/<slug>.md`** with the same structure as the existing styles:

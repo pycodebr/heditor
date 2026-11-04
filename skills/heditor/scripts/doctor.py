@@ -39,7 +39,7 @@ for mod in ["numpy", "PIL", "faster_whisper", "mediapipe", "playwright", "pytest
     except Exception as exc:  # noqa: BLE001
         check(f"python: {mod}", False, f"{exc}; run setup.sh")
 chrome = os.environ.get("HEDITOR_CHROME", "")
-check("chrome for previews/render", bool(chrome) and Path(chrome).exists(), "run: npx hyperframes@0.8.147 browser ensure")
+check("chrome for previews/render", bool(chrome) and Path(chrome).exists(), "run: npx hyperframes@0.9.13 browser ensure")
 fonts = list((ASSETS / "fonts").glob("*.ttf"))
 check(f"fonts ({len(fonts)})", len(fonts) >= 15, "run setup.sh")
 check("gsap", (ASSETS / "js/gsap.min.js").exists(), "run setup.sh")
@@ -79,10 +79,10 @@ heygen_cred = bool(os.environ.get("HEYGEN_API_KEY")) or Path("~/.heygen/credenti
 check("HeyGen avatar (optional)", bool(heygen_cli) and heygen_cred,
       "not connected; only for AI avatar videos: heditor heygen connect", required=False)
 try:
-    v = subprocess.run(["npx", "--yes", "hyperframes@0.8.147", "--version"], capture_output=True, text=True, timeout=180)
-    check("hyperframes@0.8.147", v.returncode == 0, v.stderr[-200:])
+    v = subprocess.run(["npx", "--yes", "hyperframes@0.9.13", "--version"], capture_output=True, text=True, timeout=180)
+    check("hyperframes@0.9.13", v.returncode == 0, v.stderr[-200:])
 except Exception as exc:  # noqa: BLE001
-    check("hyperframes@0.8.147", False, str(exc))
+    check("hyperframes@0.9.13", False, str(exc))
 
 for status, name, hint in rows:
     print(f"[{status}] {name}" + (f"  -> {hint}" if hint else ""))

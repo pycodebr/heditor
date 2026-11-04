@@ -9,7 +9,7 @@ KIT="$SKILL_DIR/scripts/reelkit"
 # second checkout (a branch, a fork) never mixes its CLI with another checkout's kit from env.sh.
 export HEDITOR_KIT="$KIT" HEDITOR_SKILL="$SKILL_DIR"
 PY="${HEDITOR_PY:-$HEDITOR_HOME/venv/bin/python}"
-HF="${HEDITOR_HYPERFRAMES:-npx --yes hyperframes@0.8.147}"
+HF="${HEDITOR_HYPERFRAMES:-npx --yes hyperframes@0.9.13}"
 cmd="${1:-help}"; shift || true
 
 need_work() { [[ -n "${1:-}" ]] || { echo "usage: heditor $cmd <work_dir> ..."; exit 2; }; }
@@ -73,6 +73,9 @@ case "$cmd" in
            "$PY" "$KIT/triage.py" "$@" ;;
   splice)  # heditor splice find-cut <video> <a> <b>  |  heditor splice <opening_work> <body.mp4> <out.mp4> [--cut-frame K]
            "$PY" "$KIT/splice.py" "$@" ;;
+  study)   # heditor study <video> [--out DIR] [--every 2] | heditor study compare <ref.json> <yours.json>
+           # reference study with HyperFrames' local measure/audio tools (references/reference-study.md)
+           "$PY" "$KIT/studykit.py" "$@" ;;
   svg)     # heditor svg <in.svg> [out.svg] [static|draw|morph] -> SVGO clean-up + visual check (references/gsap-craft.md)
            "$PY" "$KIT/svgkit.py" "$@" ;;
   physics) # heditor physics <work> <scene.json> [name] -> baked rigid-body sim (references/physics-3d.md)
@@ -118,6 +121,14 @@ Hook tests on a video that is already delivered (see references/hook-variants.md
   heditor splice find-cut <video> <from_s> <to_s>        first black frame / picture jumps / audio level: the splice point
   heditor splice <opening_work> <body.mp4> <out.mp4> [--cut-frame K] [--overlay seal.png --overlay-until S]
                  [--xfade-ms 8] [--no-match]             new opening + the delivered body from frame K, body untouched
+
+Reference study: derive a style from videos someone wants to emulate (see references/reference-study.md):
+  heditor study <video> [--out DIR] [--every 2] [--no-audio] [--no-face] [--no-frames]
+                                                         cuts, shots, on-screen events, holds, sound onsets, loudness,
+                                                         silences, look and face size measured locally by HyperFrames
+                                                         -> study.json + study.md + overview sheets (no sign-in, no credits)
+  heditor study compare <reference/study.json> <yours/study.json>
+                                                         a pilot's rhythm and look next to the reference's
 
 Formats and long form (classes, lives, YouTube; see references/long-form.md):
   heditor formats                                        format profiles (9:16, 16:9, 16:9-4k, 1:1, 4:5)

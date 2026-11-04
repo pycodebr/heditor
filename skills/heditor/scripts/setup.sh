@@ -4,7 +4,7 @@
 # Safe to re-run (idempotent). Everything lives in $HEDITOR_HOME (default ~/.heditor).
 set -euo pipefail
 
-HYPERFRAMES_VERSION="0.8.147"
+HYPERFRAMES_VERSION="0.9.13"
 HEDITOR_HOME="${HEDITOR_HOME:-$HOME/.heditor}"
 SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WHISPER="small"
@@ -44,7 +44,7 @@ done
 if ! have ffmpeg || ! have ffprobe; then
   say "installing ffmpeg"; install_pkgs ffmpeg || { say "please install ffmpeg (https://ffmpeg.org/download.html)"; exit 1; }
 fi
-# HyperFrames (hyperframes@0.8.x) declares engines.node >= 22; an older Node passes npx but can fail at render.
+# HyperFrames (hyperframes@0.9.x) declares engines.node >= 22; an older Node passes npx but can fail at render.
 if ! have node || [[ $(node -p 'process.versions.node.split(".")[0]') -lt 22 ]]; then
   say "installing Node.js >= 22"
   if have brew; then brew install node

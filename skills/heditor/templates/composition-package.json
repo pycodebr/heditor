@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "npx --yes hyperframes@0.8.147 check",
-    "render": "npx --yes hyperframes@0.8.147 render"
+    "check": "npx --yes hyperframes@0.9.13 check",
+    "render": "npx --yes hyperframes@0.9.13 render"
   }
 }

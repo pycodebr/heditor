@@ -42,5 +42,5 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Python deps
         run: pip install numpy pillow pytest opencv-python-headless
-      - name: Unit tests (formats, style packs, long form, mix profiles, reacao, triage, splice, stock, heygen, prepare, gen)
-        run: cd skills/heditor/scripts/reelkit && python -m pytest -q test_formats.py test_longform.py test_mix.py test_reacao.py test_triage.py test_splice.py test_stock.py test_heygen.py test_prepare_cut.py test_gen.py
+      - name: Unit tests (formats, style packs, long form, mix profiles, reacao, triage, splice, stock, heygen, prepare, gen, study)
+        run: cd skills/heditor/scripts/reelkit && python -m pytest -q test_formats.py test_longform.py test_mix.py test_reacao.py test_triage.py test_splice.py test_stock.py test_heygen.py test_prepare_cut.py test_gen.py test_study.py

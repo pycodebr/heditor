@@ -2,7 +2,7 @@
 
 | Component | Use | Licence | How it reaches the user |
 |---|---|---|---|
-| HyperFrames (`hyperframes@0.8.147`, HeyGen) | HTML → MP4 rendering, lint | Apache-2.0 | `npx` at runtime |
+| HyperFrames (`hyperframes@0.9.13`, HeyGen) | HTML → MP4 rendering, lint, local reference measurements (`heditor study`) | Apache-2.0 | `npx` at runtime |
 | Chrome headless shell | rendering and previews | Chrome terms | downloaded by `hyperframes browser ensure` |
 | GSAP 3.14.2 (GreenSock/Webflow) | animation timeline | GSAP standard "no charge" licence (https://gsap.com/standard-license) | downloaded from jsDelivr by setup |
 | faster-whisper + CTranslate2 Whisper models | ASR with word timestamps | MIT (models: MIT) | pip + Hugging Face download |
