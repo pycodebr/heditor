@@ -197,6 +197,7 @@ fonts, card kind, transition) designed for that video, plus custom set pieces.
 | `manual-de-montagem` | ad | Anton, `#000000` on `#ffd84d` | terminal / tag / slide | Step-by-step classes: each chapter is an assembly step with numbered parts; blueprint grid frames the screen. |
 | `porta-de-aco` | ad | Anton, `#000000` on `#bff9ff` | neon / tag / slide | Shutter as the chapter transition; neon signs for chapter titles. |
 | `lapidacao` | ad | Geist, `#000000` on `#f3d79b` | slate / plate / flash | Chapters as objects under a spotlight on black velvet: raw material as a rough stone, the explanation as the cut, the result as the named gem; a loupe over screen recordings; case/tag/rope only for the offer chapter. |
+| `copy-noir` | ad | Anton, `#ff2b2b` on `#050505` | slate / tag / glitch | Voice-over over symbolic dark stills; chapters as black cards with one accent word or the brand mascot in a new pose under a REC overlay; spoken numbers as number cards; the genre switch only at the end. |
 | `predio-24h` | ad | Fredoka, `#000000` on `#ffd84d` | app / tag / slide | Each chapter lights a floor; day-to-night across the video in the frame background. |
 | `stories` | ad | Geist, `#000000` on `#d7ff3a` | app / tag / slide | Story progress bar as the chapter bar; stickers as callouts; body in a clean pip. |
 | `camadas` | layers | Geist, `#ff7a59` text | editorial / tag / fade | Layered moments (text behind the speaker) only in speaker-layout set pieces with a good matte. |

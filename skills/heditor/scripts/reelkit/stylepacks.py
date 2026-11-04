@@ -617,6 +617,32 @@ STYLES = {
                       "gold-bordered window. Keep the big beats (black cards, silence, climax) for the 3-5 key "
                       "moments of the video: a long video cannot carry trailer density end to end.",
     },
+    "copy-noir": {
+        "name": "Copy noir (faceless direct-response ad in noir)", "family": "ad",
+        "palette": {"bg": "#050505", "bg2": "#111111", "surface": "#0b0b0b", "text": "#f5f5f2", "muted": "#9a9a96",
+                    "accent": "#ff2b2b", "accent2": "#38b6ff", "alert": "#ff2b2b", "ok": "#19e36b"},
+        "fonts": {"display": "Anton", "caption": "Anton", "body": "Geist", "mono": "JetBrains Mono"},
+        "captions": {"weight": 400, "case": "upper", "box": None, "stroke": None, "fg": "#f5f5f2",
+                     "active_fg": "#ff2b2b", "active_bg": None, "scale": 1.15},
+        "frame": {"border": "none", "camera_radius": 0, "screen_radius": 0, "shadow": "0 30px 80px rgba(0,0,0,.8)",
+                  "world": "#050505"},
+        "overlay": {"grain": 0.16, "letterbox": False, "scanlines": False, "vignette": 0.45},
+        "transition": {"kind": "glitch", "dur": 0.15},
+        "chapter_card": "slate", "lower_third": "tag",
+        "camera_grade": "eq=saturation=0.55:contrast=1.2:brightness=-0.04,colorbalance=rs=.05:gs=.03:bs=-.06,"
+                        "noise=alls=10:allf=t,vignette=PI/4",
+        "sfx": {"chapter": "sub_drop", "callout": "trailer_hit", "lower_third": "whoosh", "set_piece": "bass_impact",
+                "transition": "whoosh", "cta_tap": "mouse_click", "cta_done": "pop", "intro": "sub_drop"},
+        "font_note": "Anton caps for cards and captions; Geist 300 caps with letter-spacing .14em for the thin wide "
+                     "label line under a number",
+        "music": {"ids": [293, 369, 597, 568, 871], "mood": "dark synth / serious trap bed; a contrasting tail track "
+                  "(1117, 686, 33 or 187) after the CTA"},
+        "long_notes": "Voice-over over symbolic stills (one per clause, push-in always on); chapters open as black "
+                      "cards in Anton with one accent word or as the brand mascot in a new pose under a REC overlay; "
+                      "spoken numbers as black number cards with a thin wide label; one inverted white card for the "
+                      "mechanism; screen shares sit full frame graded dark. Keep the audio vacuum and the genre switch "
+                      "for the end only.",
+    },
     "nativo": {
         "name": "Nativo (clean native edit)", "family": "native",
         "palette": {"bg": "#000000", "bg2": "#0a0a0a", "surface": "#000000", "text": "#ffffff", "muted": "#c9c9c9",

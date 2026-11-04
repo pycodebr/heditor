@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.19.0 — 2026-11-03
+- **New paid-ad style `copy-noir`** (faceless direct-response ad in noir), reverse-engineered from the 17 active
+  ads with the most impressions of a Brazilian copywriting company in the Meta Ad Library, measured with word-timed
+  ASR, scene detection, loudness, frame sheets and an audio-visual review: the voice narrates from frame 0 (median
+  176 words/min, ~49 words in the first 15 s) over one symbolic dark still per clause (median shot 3 s, push-in always
+  on, zoom-blur slam, glitch and light-leak cuts), black type cards in Anton caps with one word in the accent, a thin
+  wide Geist 300 label under spoken numbers, a split frame, a recurring faceless mascot (the brand's object as its
+  head) under a REC overlay every 10–12 s, one inverted card for the reason why, an audio vacuum before the key line,
+  a "TOQUE EM SAIBA MAIS" card with falling chevrons and a contrasting music track in a 4–6 s tail. The style file
+  also records the five script shapes that fit (excuse reframe, fable of a world, diagnosis + named mechanism,
+  curiosity with numbers → process → invitation, parable with an object) and stricter truth rules than the reference
+  (no invented scarcity, numbers or "first in the world", no film clips or famous songs). Style file, INDEX, SKILL.md,
+  README (49 styles), creative-mode idea bank, long-form row and style pack; the reference build is born in the first
+  approved production.
+
 ## 2.18.0 — 2026-11-03
 - **`heditor gen`: generated media from the user's HeyGen account** (optional, `scripts/reelkit/genkit.py`,
   `references/generation.md`): `persona` puts the person inside any reference scene (HeyGen `heygen-image-1`
