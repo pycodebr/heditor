@@ -4,7 +4,7 @@ description: 'Use when the user wants to edit a talking-head, class, live or pod
 license: MIT
 metadata:
   author: PycodeBR (Felipe Azambuja)
-  version: 2.20.0
+  version: 2.21.0
   homepage: https://github.com/pycodebr/heditor
 ---
 
@@ -123,6 +123,10 @@ Text and objects *behind* the speaker, captions painted on a wall, 3D objects pa
 
 `heditor stock search "<english words>" [--orientation portrait]` lists free Mixkit clips (no account, no API key) and `heditor stock get <work> '#N'` downloads one into `<work>/composition/assets/stock/`, after confirming the Mixkit Stock Video Free License on the clip page, and records its provenance in `<work>/stock.json` (paste the printed line into DESIGN.md). Use B-roll only where it illustrates a word of the speech, muted, 1.5–3 s per idea, without recognisable faces next to claims in ads, logos or brands; one clip per `get`, never bulk downloads (Mixkit's terms forbid scraping the library). Read `references/stock-media.md`.
 
+### Optional sound effects (short-form)
+
+Use `heditor earshot setup|list` and `heditor earshot render` for locally synthesized effects, or `heditor openverse search|import` for recordings acquired separately after verifying their source and licence. The `earshot_*` and `openverse_*` categories are available to the existing `heditor produce` mixer. Keep provenance and CC BY attribution with the project; `references/sfx-sources.md` contains commands, limitations and the required checks. This integration does not yet change long-form mixing.
+
 ### Generated media (optional, HeyGen)
 
 `heditor gen persona|clip|talk` (read `references/generation.md`): the person inside any reference scene (identity
@@ -208,6 +212,7 @@ Follow `references/workflow.md` step by step. Summary:
 - `references/heygen-avatar.md` — optional AI avatar source from the user's HeyGen account: `heditor heygen connect` (OAuth with subscription credits, `--remote` for servers, or API key), status, looks and voices, `heditor avatar` (estimate, approval, idempotent request, download, `avatar.json`), writing the script for the voice (pronunciation glossary, spoken script, pauses, natural flow, word-by-word check), editing synthetic footage, consent and disclosure.
 - `references/stock-media.md` — free Mixkit B-roll: search in English, orientation, quality, licence check, `stock.json` provenance, using clips in the page, what to avoid, Mixkit terms (no mass download) and why Pexels/Pixabay/Unsplash/Adobe Stock/Videezy are not built in.
 - `references/sound-design.md` — voice chain, mix targets, SFX vocabulary, music catalog and section design.
+- `references/sfx-sources.md` — optional local Earshot synthesis and Openverse search/import, licence checks and project provenance.
 - `references/captions-and-layout.md` — caption systems, contrast rules, safe zones, camera treatments.
 - `references/quality-gates.md` — every gate, how to read false positives, final checklist.
 - `references/adding-styles.md` — how to turn a successful edit into a new named style.

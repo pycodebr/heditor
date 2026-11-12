@@ -80,6 +80,10 @@ case "$cmd" in
            "$PY" "$KIT/svgkit.py" "$@" ;;
   physics) # heditor physics <work> <scene.json> [name] -> baked rigid-body sim (references/physics-3d.md)
            need_work "${1:-}"; "$PY" "$KIT/physkit.py" "$@" ;;
+  earshot) # Optional local procedural SFX bank
+           "$PY" "$KIT/earshot_sfx.py" "$@" ;;
+  openverse) # Search licensed audio or register a locally acquired, source-verified file
+           "$PY" "$KIT/openverse_sfx.py" "$@" ;;
   stock)   # heditor stock search "<query>" [...] | heditor stock get <work> <#n|ref|url>  (Mixkit, no key)
            "$PY" "$KIT/stockkit.py" "$@" ;;
   heygen)  # optional: heditor heygen connect|status|disconnect|avatars|voices|glossaries (references/heygen-avatar.md)
@@ -116,6 +120,11 @@ heditor - creative video editing for AI agents (vertical Reels and long-form vid
   heditor finalize <work> <name.mp4>                     mux master audio + verification + 40-frame sheet
   heditor asr-check <work>                               ASR of final mix vs clean voice (masking check, MASKED spans; exit 1 on fail)
   heditor music <music:ID|file> [out.json]               track profile: bpm, energy/s, kick entries, breakdowns, lifts
+  heditor earshot setup|list                             install optional local SFX bank / list sounds
+  heditor earshot render <work> <family/variant> --category NAME --duration SEC --apex SEC [--seed N]
+  heditor openverse search "<query>" [--license cc0|by] [--limit N]
+  heditor openverse import <work> <ID> <file> --category NAME --verified-origin
+                                                         check the original page and license first; no bulk download
 
 Hook tests on a video that is already delivered (see references/hook-variants.md):
   heditor splice find-cut <video> <from_s> <to_s>        first black frame / picture jumps / audio level: the splice point

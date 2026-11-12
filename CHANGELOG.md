@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.21.0 — 2026-11-11
+- Optional `heditor earshot setup|list|render`: isolated, pinned Earshot sound bank, local deterministic WAV generation, timing controls and project provenance. No model downloads or paid API calls.
+- `heditor openverse search|import`: anonymous CC0/CC BY search and local import after independent source and licence verification; records attribution, source and SHA-256. The importer does not download or assert original quality.
+- Short-form `heditor produce` reads opt-in manifests and checks file integrity before passing effects to the existing voice-first mixer. Long-form mixing remains unchanged.
+- Documentation, CLI help and CI tests cover the new commands and provenance. Real SFX was not integrated.
+
 ## 2.20.0 — 2026-11-04
 - **HyperFrames 0.9.13** (was 0.8.147) in `setup.sh`, `heditor`, `doctor.py`, the long-form CLI, the composition
   `package.json` template, troubleshooting, licences and README. The only breaking change between them (0.9.0) removes

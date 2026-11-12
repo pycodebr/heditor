@@ -42,6 +42,7 @@ Pick the profile by the kind of delivery, not by taste:
 - Variety: do not repeat the same sample more than ~3 times in a row; use `variant` and `rate` (0.92–1.1) for variation.
 - Typical gains (before the automatic calibration): impacts -11 to -14 dB, whooshes -14 to -18, UI ticks -18 to -30, textures -22 to -30.
 - Licensed sounds only: the catalog (Mixkit) or files the user provides with a licence. Synthesised sounds (noise bursts, sine beeps, radio crackle made with numpy) are fine; add them through a `sfx_lib()` function in build.py.
+- Optional project-local Earshot synthesis and Openverse search/import are described in `sfx-sources.md`; the existing mixer loads their manifests in `heditor produce` and keeps its voice-first rules. Verify the original licence and attribution for each Openverse file.
 
 ## Music
 **Profile the track before choosing `src`:** `heditor music <music:ID|file> [out.json]` prints the tempo, energy per

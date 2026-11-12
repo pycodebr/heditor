@@ -39,6 +39,8 @@ O agente faz o trabalho inteiro, sempre localmente:
 
 O padrão de qualidade é alto: **cada vídeo ganha uma edição pensada para ele.** Um estilo é uma linguagem visual testada, nunca um molde a repetir.
 
+Para efeitos sonoros em vídeos curtos, o heditor também oferece geração local opcional com Earshot e busca de gravações no Openverse. A importação exige verificar a licença na fonte e mantém a proveniência no projeto; a mixagem existente continua responsável pelo equilíbrio com a voz. Consulte [o guia de fontes sonoras](skills/heditor/references/sfx-sources.md).
+
 ## Estilos incluídos
 
 | Estilo | Identidade |
