@@ -1,5 +1,28 @@
 # Changelog
 
+## 2.22.0 — 2026-11-19
+- **Optional remote compute on Google Colab** (`scripts/reelkit/colabkit.py`, `references/colab-compute.md`). With
+  `HEDITOR_COMPUTE=colab` in `~/.heditor/compute.env` (a user-owned file that setup never overwrites), `heditor render`,
+  `heditor transcribe`, `heditor long transcribe` and `heditor long render` rent a runtime through Google's Colab CLI
+  with the user's compute units, run there with the same flags and output formats, bring the result back and stop
+  the runtime in a `finally` (also on Ctrl-C and SIGTERM), confirmed in `colab sessions`. Renders ask for an L4
+  (12 vCPUs; the gain is CPU and RAM, the GPU path is slower), then a high-RAM CPU runtime; ASR asks for a T4, then an
+  L4, and uses `large-v3` unless a model is given. Long-form keeps its chunk files, progress file and frame checks.
+- `heditor colab status|render|transcribe|stop-all` for any HyperFrames composition or recording; `stop-all` only
+  touches runtimes named `heditor-*`. Balance before and after, machine and time go to `~/.heditor/colab-usage.json`.
+- **No silent fallback:** when Colab is unavailable (no CLI, login missing or expired, balance below
+  `HEDITOR_COLAB_MIN_UNITS`, no machine) the command runs nothing and exits 75 with the reason, so the agent tells the
+  user before re-running with `--local`. `--local` works on every command and wins over `compute.env`.
+- Transfers go through one OpenSSH ControlMaster over the CLI's ProxyCommand bridge with rsync (the runtime takes
+  one SSH connection at a time and answers HTTP 429 for 15–25 s after one closes); jobs run detached with a followed
+  log. The CLI is called without `PYTHONPATH`/`PYTHONHOME`, which broke its imports when inherited from another venv.
+- `heditor colab transcribe ... --segments seg.json` also writes the sentence segments (`start`, `end`, `text`).
+- Measured on a 4-vCPU server: a 35 s Reel in 3.9 min end to end on L4 (11 min locally), a 4.4 min 16:9 class in
+  14.4 min (32.3 min locally), a 10 min ASR window in 1.9 min on T4 with `large-v3`; frame counts and durations
+  equal to the local renders, SSIM 0.98–0.99, ASR words 98.6 % equal to an earlier `large-v3` run.
+- Tests: `test_colab.py` (usage and sessions parsing, machine order, exit 75 with nothing run, error line, render
+  job contract).
+
 ## 2.21.0 — 2026-11-11
 - Optional `heditor earshot setup|list|render`: isolated, pinned Earshot sound bank, local deterministic WAV generation, timing controls and project provenance. No model downloads or paid API calls.
 - `heditor openverse search|import`: anonymous CC0/CC BY search and local import after independent source and licence verification; records attribution, source and SHA-256. The importer does not download or assert original quality.

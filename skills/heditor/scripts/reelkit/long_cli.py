@@ -2,6 +2,7 @@
 
     heditor long new <work> <video> [--format 16:9] [--style cinema|creative] [--kind aula|live|youtube] [--range a,b]
     heditor long transcribe <work> [--model small] [--chunk 300]      chunked, resumable ASR -> transcript.json
+                                                                       (HEDITOR_COMPUTE=colab: missing chunks on Colab, large-v3)
     heditor long edl <work> [--force]                                  proposed cuts -> edl-proposal.json + qa/edl-proposal.md
     heditor long apply <work>                                          cut screen/camera/voice -> edl.json, words.json
     heditor long chapters <work> [--suggest]                           suggest / validate chapters, export chapters.txt
@@ -10,6 +11,8 @@
     heditor long preview <work> <t1,t2,..> [sheet.jpg] [--format 4:5]  frame previews (any profile) + contact sheet
     heditor long lint <work>                                           HyperFrames lint of the page and every segment
     heditor long render <work> [workers]                               segmented, resumable render with ETA log
+                                                                       (HEDITOR_COMPUTE=colab: pending segments on Colab;
+                                                                       exit 75 = unavailable, re-run with --local)
     heditor long finalize <work> <name.mp4>                            concat + one continuous master audio + QA
     heditor long qa <work> [name.mp4]                                  QA report only (qa/long-report.{json,md})
     heditor long subs <work> [name]                                    SRT + VTT of the edited timeline
@@ -33,6 +36,7 @@ import numpy as np
 
 KIT = Path(__file__).resolve().parent
 sys.path.insert(0, str(KIT))
+import colabkit  # noqa: E402
 import formats as fm  # noqa: E402
 import longform as lf  # noqa: E402
 import stylepacks as sp  # noqa: E402
@@ -125,10 +129,13 @@ def _energy(work, rng, src):
     return db
 
 
-def transcribe_media(work, media, rng, chunk_dir, model_name="small", chunk=300.0, prompt=None, lang=None, log="qa/asr/progress.log"):
-    """Chunked ASR of [rng] of `media`: one JSON per chunk (skipped when present), merged word list returned."""
-    from faster_whisper import WhisperModel
+def transcribe_media(work, media, rng, chunk_dir, model_name="small", chunk=300.0, prompt=None, lang=None, log="qa/asr/progress.log",
+                     colab_model=None):
+    """Chunked ASR of [rng] of `media`: one JSON per chunk (skipped when present), merged word list returned.
 
+    With HEDITOR_COMPUTE=colab the missing chunks are transcribed in one Colab runtime (colab_model, default
+    HEDITOR_COLAB_ASR_MODEL / large-v3) and written in the same files; raises colabkit.Unavailable when it cannot run.
+    """
     import reelkit as rk
     chunk_dir = Path(chunk_dir)
     chunk_dir.mkdir(parents=True, exist_ok=True)
@@ -136,6 +143,16 @@ def transcribe_media(work, media, rng, chunk_dir, model_name="small", chunk=300.
     thr, _ = lf.silence_threshold(db)
     quiet = lf.quiet_runs(db, thr, rng[0], 0.25)
     chunks = lf.plan_chunks(rng[0], rng[1], chunk, quiet)
+    paths = [chunk_dir / f"chunk-{a:010.3f}-{b:010.3f}.json" for a, b in chunks]
+    missing = [(p.name, a, b) for p, (a, b) in zip(paths, chunks) if not p.exists()]
+    if missing and colabkit.enabled():
+        t0 = time.time()
+        got = colabkit.transcribe_jobs(media, missing, model=colab_model, lang=lang, prompt=prompt)
+        for name, a, b in missing:
+            _save(chunk_dir / name, got[name]["words"])
+        _log(work, log, f"colab: {len(missing)} chunks ({sum(b - a for _, a, b in missing):.0f} s of audio) in "
+                        f"{(time.time() - t0) / 60:.1f} min, {sum(len(got[n]['words']) for n, _, _ in missing)} words")
+    from faster_whisper import WhisperModel
     model, results, t_start, done_audio = None, [], time.time(), 0.0
     for k, (a, b) in enumerate(chunks):
         path = chunk_dir / f"chunk-{a:010.3f}-{b:010.3f}.json"
@@ -167,8 +184,13 @@ def cmd_transcribe(argv):
     work = Path(pos[0])
     cfg = _cfg(work)
     asr = cfg.get("asr", {})
-    words, chunks = transcribe_media(work, cfg["source"], cfg["range"], work / "qa/asr", opt.get("model", asr.get("model", "small")),
-                                     float(opt.get("chunk", asr.get("chunk_s", 300))), asr.get("prompt") or None, asr.get("lang"))
+    try:
+        words, chunks = transcribe_media(work, cfg["source"], cfg["range"], work / "qa/asr", opt.get("model", asr.get("model", "small")),
+                                         float(opt.get("chunk", asr.get("chunk_s", 300))), asr.get("prompt") or None, asr.get("lang"),
+                                         colab_model=opt.get("model"))
+    except colabkit.Unavailable as exc:
+        print(colabkit.notice(exc), file=sys.stderr)
+        sys.exit(colabkit.UNAVAILABLE)
     _save(work / "transcript.json", words)
     print(json.dumps({"words": len(words), "chunks": len(chunks), "transcript": str(work / "transcript.json")}))
 
@@ -575,6 +597,9 @@ def cmd_render(argv):
     _log(work, "render/render.log", f"{len(segs)} segments, {len(segs) - len(todo)} ready, {len(todo)} to render "
                                     f"({sum(s['frames'] for s in todo)}/{total} frames); estimate {est['eta_s'] / 60:.1f} min")
     t_all = time.time()
+    if todo and colabkit.enabled():
+        _render_colab(work, cfg, rcfg, todo, out_dir, prog, prog_path, t_all)
+        return
     for k, s in enumerate(todo):
         out = out_dir / f"seg-{s['index']:03d}.mp4"
         lock = _acquire(os.environ.get("HEDITOR_LOCK"))  # shared machine: hold the heavy-job lock per segment
@@ -601,6 +626,32 @@ def cmd_render(argv):
             _log(work, "render/render.log", f"seg-{s['index']:03d} frame count {got} != {s['frames']}")
             sys.exit(1)
     _log(work, "render/render.log", f"render done in {(time.time() - t_all) / 60:.1f} min")
+
+
+def _render_colab(work, cfg, rcfg, todo, out_dir, prog, prog_path, t_all):
+    """Pending segments rendered in one Colab runtime with the same flags; same progress file and frame checks."""
+    flags = ["--fps", str(cfg.get("fps", 30)), "--quality", "high", "--crf", str(rcfg.get("crf", 17)), "--workers", "auto",
+             "--strict", "--no-best-effort", "--quiet"]
+    try:
+        res = colabkit.render_many([(work / s["dir"], out_dir / f"seg-{s['index']:03d}.mp4") for s in todo], flags)
+    except colabkit.Unavailable as exc:
+        print(colabkit.notice(exc), file=sys.stderr)
+        sys.exit(colabkit.UNAVAILABLE)
+    bad = []
+    for s, r in zip(todo, res):
+        got = _frames(Path(r["out"]))
+        # "where" keeps Colab timings out of the local render estimate (_history)
+        prog[s["dir"]] = {"hash": s["hash"], "frames": s["frames"], "seconds": None, "colab_seconds": r["seconds"],
+                          "got_frames": got, "where": "colab"}
+        _save(prog_path, prog)
+        _log(work, "render/render.log", f"seg-{s['index']:03d} {s['start']:.2f}-{s['end']:.2f}s {s['frames']} frames on Colab in "
+                                        f"{r['seconds']}s frames ok={got == s['frames']}")
+        if got != s["frames"]:
+            bad.append(s["index"])
+    if bad:
+        _log(work, "render/render.log", f"frame count mismatch in segments {bad}")
+        sys.exit(1)
+    _log(work, "render/render.log", f"render done on Colab in {(time.time() - t_all) / 60:.1f} min")
 
 
 def concat_segments(paths, out):

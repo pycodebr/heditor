@@ -4,6 +4,8 @@ set -euo pipefail
 HEDITOR_HOME="${HEDITOR_HOME:-$HOME/.heditor}"
 SKILL_DIR="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")/.." && pwd)"
 if [[ -f "$HEDITOR_HOME/env.sh" ]]; then . "$HEDITOR_HOME/env.sh"; fi
+# Optional, user-owned (setup never overwrites it): HEDITOR_COMPUTE=colab and the HEDITOR_COLAB_* settings.
+if [[ -f "$HEDITOR_HOME/compute.env" ]]; then . "$HEDITOR_HOME/compute.env"; fi
 KIT="$SKILL_DIR/scripts/reelkit"
 # build.py/prepare.py import the kit through HEDITOR_KIT: always point it at the kit next to this script, so a
 # second checkout (a branch, a fork) never mixes its CLI with another checkout's kit from env.sh.
@@ -13,6 +15,12 @@ HF="${HEDITOR_HYPERFRAMES:-npx --yes hyperframes@0.9.13}"
 cmd="${1:-help}"; shift || true
 
 need_work() { [[ -n "${1:-}" ]] || { echo "usage: heditor $cmd <work_dir> ..."; exit 2; }; }
+# --local anywhere in the arguments forces this machine even when HEDITOR_COMPUTE=colab (the fallback after telling
+# the user that Colab is unavailable; Colab commands exit 75 and run nothing when it is).
+LOCAL=0; args=(); for a in "$@"; do if [[ "$a" == "--local" ]]; then LOCAL=1; else args+=("$a"); fi; done
+set -- ${args[@]+"${args[@]}"}
+[[ $LOCAL == 1 ]] && export HEDITOR_COMPUTE=local
+use_colab() { [[ "${HEDITOR_COMPUTE:-local}" == colab ]]; }
 
 case "$cmd" in
   setup)   bash "$SKILL_DIR/scripts/setup.sh" "$@" ;;
@@ -39,7 +47,8 @@ case "$cmd" in
            SRC="$1"; shift; OUT="${PROBE_DIR:-./probe}"; mkdir -p "$OUT"
            ffprobe -v error -show_entries format=duration:stream=width,height,r_frame_rate -of compact "$SRC"
            for t in "${@:-5 30 60}"; do ffmpeg -v error -y -ss "$t" -i "$SRC" -frames:v 1 "$OUT/frame-$t.jpg"; echo "$OUT/frame-$t.jpg"; done ;;
-  transcribe) # heditor transcribe <source_video> <start_s> <duration_s> <out.json> [prompt]
+  transcribe) # heditor transcribe <source_video> <start_s> <duration_s> <out.json> [prompt] [model] [--local]
+           if use_colab; then exec "$PY" "$KIT/colabkit.py" asr-window "$@"; fi
            "$PY" "$KIT/asr_window.py" "$@" ;;
   prepare) need_work "${1:-}"; (cd "$1" && "$PY" prepare.py) ;;
   words)   need_work "${1:-}"; "$PY" "$KIT/transcribe_cut.py" "$@" ;;
@@ -54,13 +63,18 @@ case "$cmd" in
            [[ ${#times[@]} -gt 0 ]] || { echo "usage: heditor preview <work_dir> <t1,t2,...> [sheet.jpg]"; exit 2; }
            tl="$(IFS=,; echo "${times[*]}")"; "$PY" "$KIT/preview.py" "$sheet" "${tl//,,/,}" "$work" ;;
   test)    need_work "${1:-}"; CUT_WORK="$(cd "$1" && pwd)" "$PY" -m pytest -q "$KIT/test_cut.py" ;;
-  render)  # heditor render <work_dir> [workers]
+  render)  # heditor render <work_dir> [workers] [--local]
            need_work "${1:-}"; mkdir -p "$1/render"
+           if use_colab; then   # same flags; the runtime picks its own worker count
+             exec "$PY" "$KIT/colabkit.py" render "$1/composition" "$1/render/render.mp4" --fps 30 --quality high --crf 17 --workers auto --strict --no-best-effort
+           fi
            export FFMPEG_ENCODE_TIMEOUT_MS="${FFMPEG_ENCODE_TIMEOUT_MS:-3600000}"   # heavy styles on busy machines; set PRODUCER_ENABLE_CHUNKED_ENCODE=true if it still times out
            (cd "$1/composition" && $HF render --fps 30 --quality high --crf 17 --workers "${2:-2}" --strict --no-best-effort --output ../render/render.mp4) ;;
   finalize) # heditor finalize <work_dir> <final_name.mp4> [auto|t1,t2,...]
            need_work "${1:-}"; "$PY" "$KIT/finalize.py" "$1" "$2" "${3:-auto}" ;;
   asr-check) need_work "${1:-}"; "$PY" "$KIT/asr_check.py" "$1" ;;
+  colab)   # heditor colab status|render|transcribe|stop-all ... -> optional remote compute (references/colab-compute.md)
+           exec "$PY" "$KIT/colabkit.py" "$@" ;;
   music)   # heditor music <music:ID|track.mp3> [out.json] -> tempo, energy, kick entries, breakdowns, lifts
            "$PY" "$KIT/music_profile.py" "$@" ;;
   matte|depth|look|hands|plane) # layered / 2.5D helpers (depthkit); see references/depth-and-3d.md
@@ -119,6 +133,13 @@ heditor - creative video editing for AI agents (vertical Reels and long-form vid
   heditor render <work> [workers]                        render MP4 with HyperFrames
   heditor finalize <work> <name.mp4>                     mux master audio + verification + 40-frame sheet
   heditor asr-check <work>                               ASR of final mix vs clean voice (masking check, MASKED spans; exit 1 on fail)
+  heditor colab status|stop-all                          optional remote compute on Google Colab (HEDITOR_COMPUTE=colab in
+                                                         ~/.heditor/compute.env): render, transcribe, long transcribe and
+                                                         long render run on a rented runtime; exit 75 = Colab unavailable,
+                                                         nothing ran: tell the user, then re-run with --local
+  heditor colab render <comp_dir> <out.mp4> [flags]      any HyperFrames composition on Colab
+  heditor colab transcribe <media> <out.json> [--start S] [--dur D] [--prompt T] [--model M] [--segments S.json]
+                                                         any audio/video on Colab (words; segments with --segments)
   heditor music <music:ID|file> [out.json]               track profile: bpm, energy/s, kick entries, breakdowns, lifts
   heditor earshot setup|list                             install optional local SFX bank / list sounds
   heditor earshot render <work> <family/variant> --category NAME --duration SEC --apex SEC [--seed N]
